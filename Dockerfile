@@ -50,7 +50,6 @@ COPY --from=build /app/node_modules ./node_modules
 # Web build (if generated)
 COPY --from=build /app/apps/mobile/dist ./public
 
-VOLUME ["/app/data"]
 ENV NODE_ENV=production
 EXPOSE 3000
 CMD ["node", "dist/main.js"]
