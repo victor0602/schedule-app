@@ -2,10 +2,10 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
 # Dependencies
-COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml .npmrc ./
 COPY apps/api/package.json apps/api/
 COPY apps/mobile/package.json apps/mobile/
 COPY packages/shared/package.json packages/shared/
@@ -32,7 +32,7 @@ RUN cd apps/mobile && npx expo export --platform web 2>/dev/null && echo "Web bu
 FROM node:20-alpine AS run
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 
 # API
 COPY --from=build /app/apps/api/dist ./dist
