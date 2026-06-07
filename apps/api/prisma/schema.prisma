@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  displayName  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  ownedSchedules Schedule[]    @relation("ScheduleOwner")
+  refreshTokens  RefreshToken[]
+  memberships    GroupMember[]
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  deviceId  String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  name      String
+  type      String
+  ownerId   String
+  owner     User     @relation("ScheduleOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  group     Group?
+
+  courses   Course[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  version   Int      @default(0)
+
+  @@index([ownerId])
+}
+
+model Group {
+  id          String        @id @default(cuid())
+  name        String
+  scheduleId  String        @unique
+  schedule    Schedule      @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  members     GroupMember[]
+  inviteCode  String        @unique
+
+  createdAt   DateTime      @default(now())
+}
+
+model GroupMember {
+  id       String   @id @default(cuid())
+  groupId  String
+  userId   String
+  role     String
+  joinedAt DateTime @default(now())
+
+  group    Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user     User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+  @@index([userId])
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  scheduleId  String
+  schedule    Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  title       String
+  teacher     String?
+  location    String?
+  color       String   @default("#3b82f6")
+  note        String?
+
+  startTime   String
+  endTime     String
+  rrule       String
+  dtstart     DateTime
+  exdates     String   @default("[]")
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([scheduleId])
+}

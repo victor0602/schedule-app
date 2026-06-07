@@ -1,0 +1,277 @@
+// Cursor助手 (Cursor Helper) - client-config.json 草稿
+// 用途：把第三方 API（opencode-go 订阅）接入 Cursor
+// 部署方式：人工 review 后覆盖到
+//   /Users/victor/Library/Application Support/Cursor助手/client-config.json
+// 备份：覆盖前先 cp 原文件为 client-config.json.bak
+
+{
+  // —— 模型列表 ——
+  // 所有 18 个模型都来自 opencode-go 订阅
+  //   官方模型清单：https://opencode.ai/zen/go/v1/models
+  //   文档：        https://opencode.ai/docs/go/
+  //
+  // 协议分两类（来自 opencode-go 官方 docs）：
+  //   type = "openai"    → 用 OpenAI 兼容协议（baseURL 拼 /chat/completions）
+  //   type = "anthropic" → 用 Anthropic 兼容协议（baseURL 拼 /messages）
+  //
+  // 字段说明（参考现有 minimax 条目，未在官方文档里一一核对，所以先沿用现有字段名）：
+  //   displayName            Cursor 侧显示名
+  //   type                   协议类型（openai / anthropic）
+  //   baseURL                API 根地址（不含 /chat/completions 或 /messages）
+  //   apiKey                 API key；先放占位，覆盖前替换成你 opencode-go 的 key
+  //                          （key 在 ~/.local/share/opencode/auth.json 里能看到，sk- 开头）
+  //   tooltipData            悬停提示；这里复填 baseURL
+  //   modelID                实际发给上游的模型 ID（opencode-go 那边的小写 id）
+  //   reasoningEffort        推理强度（medium / low / high），0 或留空 = 关闭
+  //   contextWindowTokens    上下文窗口（0 = 用模型默认）
+  //   maxCompletionTokens    单次输出上限（0 = 用模型默认）
+  //   anthropicMaxTokens     仅 anthropic 类型生效（0 = 默认）
+  //   thinkingBudgetTokens   思考预算（0 = 不强制启用 thinking）
+  "modelAdapters": [
+
+    // ============ OpenAI 兼容（/v1/chat/completions）============
+    {
+      "displayName": "GLM-5",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "glm-5",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "GLM-5.1",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "glm-5.1",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "Kimi K2.5",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "kimi-k2.5",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "Kimi K2.6",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "kimi-k2.6",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "DeepSeek V4 Pro",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "deepseek-v4-pro",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "DeepSeek V4 Flash",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "deepseek-v4-flash",
+      "reasoningEffort": "low",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "MiMo V2.5",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "mimo-v2.5",
+      "reasoningEffort": "low",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "MiMo V2.5 Pro",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "mimo-v2.5-pro",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "MiMo V2 Pro",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "mimo-v2-pro",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "MiMo V2 Omni",
+      "type": "openai",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "mimo-v2-omni",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+
+    // ============ Anthropic 兼容（/v1/messages）============
+    {
+      "displayName": "MiniMax M3",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "minimax-m3",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "MiniMax M2.7",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "minimax-m2.7",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "MiniMax M2.5",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "minimax-m2.5",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "Qwen3.7 Max",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "qwen3.7-max",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "Qwen3.7 Plus",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "qwen3.7-plus",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "Qwen3.6 Plus",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "qwen3.6-plus",
+      "reasoningEffort": "medium",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "Qwen3.5 Plus",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "qwen3.5-plus",
+      "reasoningEffort": "low",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    },
+    {
+      "displayName": "Hy3 Preview",
+      "type": "anthropic",
+      "baseURL": "https://opencode.ai/zen/go/v1",
+      "apiKey": "REPLACE_WITH_OPENCODE_GO_API_KEY",
+      "tooltipData": "https://opencode.ai/zen/go/v1",
+      "modelID": "hy3-preview",
+      "reasoningEffort": "low",
+      "contextWindowTokens": 0,
+      "maxCompletionTokens": 0,
+      "anthropicMaxTokens": 0,
+      "thinkingBudgetTokens": 0
+    }
+  ],
+
+  // —— 路由 ——
+  // 保持原状，不要动 cursorByokServiceOrigin，否则 BYOK 代理可能断
+  "routing": {
+    "mode": "local",
+    "cursorByokServiceOrigin": "http://47.109.48.20:443"
+  }
+}

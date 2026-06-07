@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Schedule",
+    "slug": "schedule-app",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "scheduleapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.scheduleapp"
+    },
+    "android": {
+      "package": "com.example.scheduleapp",
+      "adaptiveIcon": {
+        "backgroundColor": "#0ea5e9"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "apiUrl": "http://localhost:3000/api/v1"
+    }
+  }
+}

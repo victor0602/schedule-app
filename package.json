@@ -1,0 +1,25 @@
+{
+  "name": "schedule-app",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:api": "pnpm --filter @schedule/api dev",
+    "dev:mobile": "pnpm --filter @schedule/mobile start",
+    "dev:mobile:web": "pnpm --filter @schedule/mobile web",
+    "dev:mobile:ios": "pnpm --filter @schedule/mobile ios",
+    "dev:mobile:android": "pnpm --filter @schedule/mobile android",
+    "build:shared": "pnpm --filter @schedule/shared build",
+    "build:api": "pnpm --filter @schedule/api build",
+    "setup": "pnpm prisma:generate && pnpm prisma:migrate",
+    "prisma:generate": "pnpm --filter @schedule/api prisma:generate",
+    "prisma:migrate": "pnpm --filter @schedule/api prisma:migrate",
+    "prisma:studio": "pnpm --filter @schedule/api prisma:studio"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
