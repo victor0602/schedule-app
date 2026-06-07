@@ -43,7 +43,7 @@ module.exports = async function handler(req, res) {
     console.error("[HANDLER ERROR]", req.method, req.url, err.message);
     res.status(500).json({
       error: "Internal Server Error",
-      message: process.env.NODE_ENV === "production" ? "Server error" : err.message,
+      message: err.message,
       code: err.code || "UNKNOWN",
     });
   }
