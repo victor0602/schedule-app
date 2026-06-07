@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ts-node --transpile-only -r tsconfig-paths/register src/main.ts",
     "dev:watch": "ts-node-dev --transpile-only --respawn --rs --watch src/main.ts",
-    "build": "nest build",
+    "compile": "nest build",
     "start": "node dist/main.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",

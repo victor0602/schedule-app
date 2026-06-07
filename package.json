@@ -13,7 +13,7 @@
     "dev:mobile:ios": "pnpm --filter @schedule/mobile ios",
     "dev:mobile:android": "pnpm --filter @schedule/mobile android",
     "build:shared": "pnpm --filter @schedule/shared build",
-    "build:api": "pnpm --filter @schedule/api build",
+    "build:api": "pnpm --filter @schedule/api compile",
     "build": "pnpm build:shared && cd apps/api && npx prisma generate && npx prisma migrate deploy && npx nest build",
     "vercel-build": "pnpm build",
     "setup": "pnpm prisma:generate && pnpm prisma:migrate",
