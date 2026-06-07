@@ -19,11 +19,11 @@ COPY apps/api apps/api
 COPY apps/mobile apps/mobile
 COPY packages/shared packages/shared
 
+# Generate Prisma client (must run before nest build for TypeScript types)
+RUN npx prisma generate --schema=apps/api/prisma/schema.prisma
+
 # Build API
 RUN cd apps/api && npx nest build
-
-# Generate Prisma client
-RUN npx prisma generate --schema=apps/api/prisma/schema.prisma
 
 # Build Expo Web (optional — skip if expo export fails)
 RUN cd apps/mobile && npx expo export --platform web 2>/dev/null && echo "Web build OK" || echo "Web build skipped (expo not available)"
