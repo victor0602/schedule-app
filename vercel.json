@@ -4,6 +4,9 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "public",
   "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    },
     "api/index.ts": {
       "maxDuration": 30
     }

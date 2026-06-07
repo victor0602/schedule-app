@@ -1,9 +1,11 @@
-import "reflect-metadata";
-import { NestFactory } from "@nestjs/core";
-import { ValidationPipe, Logger } from "@nestjs/common";
-import { AppModule } from "../apps/api/src/app.module";
+"use strict";
+require("reflect-metadata");
 
-let cachedApp: any;
+const { NestFactory } = require("@nestjs/core");
+const { ValidationPipe, Logger } = require("@nestjs/common");
+const { AppModule } = require("../apps/api/dist/app.module");
+
+let cachedApp;
 
 async function bootstrap() {
   if (!cachedApp) {
@@ -11,7 +13,7 @@ async function bootstrap() {
       if (!process.env.JWT_ACCESS_SECRET || !process.env.JWT_REFRESH_SECRET) {
         Logger.error(
           "FATAL: JWT_ACCESS_SECRET and JWT_REFRESH_SECRET must be set in production",
-          "Bootstrap",
+          "Bootstrap"
         );
         throw new Error("Missing JWT secrets");
       }
@@ -33,15 +35,14 @@ async function bootstrap() {
         whitelist: true,
         transform: true,
         forbidNonWhitelisted: true,
-      }),
+      })
     );
     await cachedApp.init();
   }
   return cachedApp;
 }
 
-export default async function handler(req: any, res: any) {
+module.exports = async function handler(req, res) {
   const app = await bootstrap();
-  const expressInstance = app.getHttpAdapter().getInstance();
-  return expressInstance(req, res);
-}
+  return app.getHttpAdapter().getInstance()(req, res);
+};
